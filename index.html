@@ -137,10 +137,9 @@ h1,h2,h3{font-weight:400;margin:0}
 .hero__badges span{font-size:.84rem;font-weight:500;padding:8px 15px;border-radius:100px;border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.86);background:rgba(255,255,255,.04);backdrop-filter:blur(6px)}
 .hero__card{display:block;padding:26px 24px;border-radius:var(--r-lg);background:rgba(7,35,44,.5);border:1px solid rgba(207,163,124,.3);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:transform .5s var(--ease-out),border-color .4s}
 .hero__card:hover{transform:translateY(-6px);border-color:rgba(207,163,124,.7)}
-.hero__card-brand{font-family:var(--font-display);font-size:2.2rem;line-height:1;color:#fff;margin:0 0 6px}
+.hero__card-brand{display:block;width:auto;height:34px;margin:0 0 10px}
 .hero__card-tag{font-size:.86rem;color:var(--wood-lt);margin:0 0 14px;font-weight:500}
 .hero__card p{margin:0 0 16px;font-size:.95rem;color:rgba(255,255,255,.8)}
-.hero__card .hero__card-brand{font-family:var(--font-display);font-size:2.4rem;line-height:1;color:#fff;margin:0 0 6px}
 .hero__card .hero__card-tag{font-size:.9rem;color:var(--wood-lt);margin:0 0 14px;font-weight:600}
 .hero__card-link{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;color:#fff}
 .hero__card-link svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .4s var(--ease-out)}
@@ -180,7 +179,7 @@ h1,h2,h3{font-weight:400;margin:0}
 /* ---------- rinnai ---------- */
 .rinnai{display:grid;grid-template-columns:1fr minmax(0,470px);gap:clamp(40px,6vw,84px);align-items:center}
 .section--dark::before{content:"";position:absolute;left:-10%;bottom:-40%;width:760px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(207,163,124,.16),transparent 65%);pointer-events:none}
-.rinnai__word{font-family:var(--font-display);font-size:clamp(3.2rem,7vw,5.2rem);line-height:.95;color:#fff;margin:0 0 10px;letter-spacing:-.01em}
+.rinnai__word{display:block;width:clamp(200px,26vw,320px);height:auto;margin:0 0 14px}
 .ticks{display:grid;gap:13px;margin:28px 0 34px}
 .ticks li{position:relative;padding-left:32px;color:#D3E2E6}
 .ticks li::before{content:"";position:absolute;left:0;top:.42em;width:18px;height:18px;border-radius:50%;background:rgba(207,163,124,.14);border:1px solid rgba(207,163,124,.55)}
@@ -600,7 +599,7 @@ h1,h2,h3{font-weight:400;margin:0}
     </div>
 
     <a href="#rinnai" class="hero__card reveal-up" style="--d:1.5s">
-      <p class="hero__card-brand">Rinnai</p>
+      <img class="hero__card-brand" src="img/rinnai.svg" alt="Rinnai" width="284" height="72" loading="lazy">
       <p class="hero__card-tag">Revenda e assistência autorizada</p>
       <p>Descubra em segundos o tamanho de aquecedor a gás que atende a sua casa.</p>
       <span class="hero__card-link">Calcular meu aquecedor <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
@@ -699,7 +698,7 @@ h1,h2,h3{font-weight:400;margin:0}
   <div class="wrap rinnai">
     <div>
       <p class="label reveal">Revenda e assistência autorizada</p>
-      <p class="rinnai__word reveal" style="--d:.05s" aria-hidden="true">Rinnai</p>
+      <img class="rinnai__word reveal" style="--d:.05s" aria-hidden="true" src="img/rinnai.svg" alt="" width="284" height="72" loading="lazy">
       <h2 class="title reveal" style="--d:.1s"><span class="sr-only">Aquecedores a gás Rinnai: </span>Compra, instalação e assistência no mesmo lugar</h2>
       <p class="lead reveal" style="--d:.15s">Ajudamos você a escolher o modelo certo para o número de chuveiros da casa, instalamos com a exaustão adequada e seguimos cuidando do aparelho depois.</p>
       <ul class="ticks">
