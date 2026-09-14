@@ -211,6 +211,34 @@ h1,h2,h3{font-weight:400;margin:0}
 .calc__note{font-size:.82rem;color:#86A3AC;margin:0 0 20px}
 .calc .btn{width:100%}
 
+/* ---------- modelos rinnai ---------- */
+.models__head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 24px;margin:clamp(56px,7vw,86px) 0 24px}
+.models__title{font-family:var(--font-display);font-size:clamp(1.5rem,2.6vw,2rem);color:#fff;margin:0}
+.models__hint{margin:0;font-size:.93rem;color:#86A3AC}
+.models{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.model{position:relative;display:flex;flex-direction:column;padding:16px 16px 20px;border-radius:var(--r-lg);background:linear-gradient(170deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);isolation:isolate;overflow:hidden;transition:transform .55s var(--ease-out),border-color .45s,box-shadow .55s var(--ease-out),background .45s}
+.model__stage{position:relative;border-radius:var(--r);background:linear-gradient(180deg,#fff,#E4ECEE);aspect-ratio:1/1;overflow:hidden}
+.model__stage img{position:absolute;inset:18px;width:calc(100% - 36px);height:calc(100% - 36px);object-fit:contain;mix-blend-mode:multiply;transition:transform .6s var(--ease-out)}
+.model:hover .model__stage img{transform:translateY(-5px) scale(1.04)}
+.model__badge{position:absolute;top:13px;right:13px;z-index:3;padding:6px 13px;border-radius:100px;font-size:.75rem;font-weight:700;background:rgba(7,35,44,.78);border:1px solid rgba(255,255,255,.25);color:#fff;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transform:translateY(-7px) scale(.96);transition:opacity .45s var(--ease-out),transform .45s var(--ease-out),background .45s,border-color .45s,color .45s}
+.model.has-badge .model__badge{opacity:1;transform:none}
+.model__name{font-family:var(--font-display);font-size:1.5rem;color:#fff;margin:18px 0 4px}
+.model__flow{margin:0 0 12px;font-size:.9rem;color:var(--wood-lt);font-weight:600}
+.model__flow strong{font-family:var(--font-display);font-size:1.6rem;font-weight:400;color:#fff;margin-right:3px}
+.model__desc{margin:0 0 14px;font-size:.92rem;color:#9DB7BF}
+.model__role{margin:0 0 18px;padding-top:13px;border-top:1px solid rgba(255,255,255,.1);font-size:.88rem;color:#86A3AC}
+.model .btn{margin-top:auto;width:100%}
+.model.is-suggested{border-color:rgba(207,163,124,.6);background:linear-gradient(170deg,rgba(207,163,124,.17),rgba(255,255,255,.03));box-shadow:0 34px 74px -32px rgba(0,0,0,.8);transform:translateY(-8px)}
+.model.is-suggested .model__badge{background:var(--wood);border-color:var(--wood-lt)}
+.model.is-suggested .model__role{color:#E3D3C3}
+.model.is-best .model__badge{background:rgba(6,71,90,.88);border-color:rgba(139,195,209,.6);color:#CFE7EF}
+.model.is-suggested .model__cta{background:var(--ember);border-color:transparent;color:#fff;box-shadow:0 14px 30px -12px rgba(103,66,40,.7)}
+.model.is-suggested .model__cta:hover{background:var(--ember-dk)}
+.model__sheen{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;background:linear-gradient(105deg,transparent 36%,rgba(255,255,255,.2) 50%,transparent 64%)}
+.model.is-flash .model__sheen{animation:sheen .95s var(--ease-out)}
+@keyframes sheen{0%{opacity:0;transform:translateX(-115%)}22%{opacity:1}100%{opacity:0;transform:translateX(115%)}}
+.models__note{margin:20px 0 0;padding:14px 18px;border-radius:var(--r);background:rgba(207,163,124,.1);border:1px solid rgba(207,163,124,.3);color:#E6D6C6;font-size:.92rem}
+
 /* ---------- before/after ---------- */
 .ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .ba{margin:0}
@@ -431,6 +459,10 @@ h1,h2,h3{font-weight:400;margin:0}
   .brand-tile--rinnai{grid-column:span 3;grid-row:auto}
 }
 @media (max-width:900px){
+  .models{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(264px,78%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;scrollbar-width:none}
+  .models::-webkit-scrollbar{display:none}
+  .model{scroll-snap-align:center}
+  .model.is-suggested{transform:none}
   .service,.rinnai{grid-template-columns:1fr}
   .service--reverse .service__media{order:0}
   .frame--float{width:36%;right:0;bottom:-8%}
@@ -484,6 +516,9 @@ h1,h2,h3{font-weight:400;margin:0}
   .logo-card{margin:0}
   .logo-card[aria-hidden="true"]{display:none}
   .rcar__track{transition:none}
+  .model,.model__badge,.model__stage img{transition:none!important}
+  .model.is-suggested{transform:none}
+  .model.is-flash .model__sheen{animation:none}
 }
 </style>
 <script type="application/ld+json">
@@ -671,7 +706,7 @@ h1,h2,h3{font-weight:400;margin:0}
         <li class="reveal" style="--d:.2s">Modelos para gás natural encanado (GN) e para botijão (GLP)</li>
         <li class="reveal" style="--d:.26s">Linhas mecânica e digital, com opções de até 45 litros por minuto</li>
         <li class="reveal" style="--d:.32s">Instalação com chaminé, tubulação e pontos de gás revisados</li>
-        <li class="reveal" style="--d:.38s">Trocadores de calor CrossWind para piscina e spa</li>
+        <li class="reveal" style="--d:.38s">Bombas de calor e trocadores para aquecimento de piscina e spa</li>
         <li class="reveal" style="--d:.44s">Conserto e manutenção como assistência autorizada da marca</li>
       </ul>
       <a class="btn btn--ember btn--lg reveal" style="--d:.5s" href="https://wa.me/5585997554327?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20HS%20e%20quero%20or%C3%A7amento%20de%20aquecedor%20a%20g%C3%A1s%20Rinnai." target="_blank" rel="noopener">Pedir orçamento Rinnai</a>
@@ -714,6 +749,56 @@ h1,h2,h3{font-weight:400;margin:0}
       <p class="calc__note">O modelo final é confirmado na visita técnica, considerando pressão da água, tipo de chuveiro e distância até os pontos.</p>
       <a class="btn btn--ember" id="calcSend" href="#" target="_blank" rel="noopener">Enviar estimativa no WhatsApp</a>
     </form>
+  </div>
+
+  <div class="wrap">
+    <div class="models__head reveal">
+      <h3 class="models__title">Modelos da linha digital</h3>
+      <p class="models__hint">Mexa no simulador acima: destacamos o aparelho que atende o seu consumo.</p>
+    </div>
+
+    <div class="models" id="models">
+      <article class="model reveal" data-flow="15" data-name="E15" style="--d:.06s">
+        <span class="model__sheen" aria-hidden="true"></span>
+        <span class="model__badge"></span>
+        <div class="model__stage">
+          <img src="img/produtos/rinnai-e15.jpg" alt="Aquecedor de água a gás Rinnai E15" loading="lazy" width="383" height="666">
+        </div>
+        <h4 class="model__name">Rinnai E15</h4>
+        <p class="model__flow"><strong>15</strong> L/min</p>
+        <p class="model__desc">Sucesso de vendas, o 15 litros digital da Rinnai é um aquecedor a gás confiável e eficiente para o uso do dia a dia.</p>
+        <p class="model__role"></p>
+        <a class="btn btn--glass model__cta" href="https://wa.me/5585997554327?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20HS%20e%20quero%20or%C3%A7amento%20do%20aquecedor%20a%20g%C3%A1s%20Rinnai%20E15." target="_blank" rel="noopener">Falar sobre o E15</a>
+      </article>
+
+      <article class="model reveal" data-flow="17" data-name="E17" style="--d:.14s">
+        <span class="model__sheen" aria-hidden="true"></span>
+        <span class="model__badge"></span>
+        <div class="model__stage">
+          <img src="img/produtos/rinnai-e17.jpg" alt="Aquecedor de água a gás Rinnai E17" loading="lazy" width="392" height="583">
+        </div>
+        <h4 class="model__name">Rinnai E17</h4>
+        <p class="model__flow"><strong>17</strong> L/min</p>
+        <p class="model__desc">Aparelho da Nova Geração de aquecedores digitais Rinnai, fabricado no Brasil e compatível com módulo controlador WIFI.</p>
+        <p class="model__role"></p>
+        <a class="btn btn--glass model__cta" href="https://wa.me/5585997554327?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20HS%20e%20quero%20or%C3%A7amento%20do%20aquecedor%20a%20g%C3%A1s%20Rinnai%20E17." target="_blank" rel="noopener">Falar sobre o E17</a>
+      </article>
+
+      <article class="model reveal" data-flow="21" data-name="E21" style="--d:.22s">
+        <span class="model__sheen" aria-hidden="true"></span>
+        <span class="model__badge"></span>
+        <div class="model__stage">
+          <img src="img/produtos/rinnai-e21.jpg" alt="Aquecedor de água a gás Rinnai E21" loading="lazy" width="389" height="580">
+        </div>
+        <h4 class="model__name">Rinnai E21</h4>
+        <p class="model__flow"><strong>21</strong> L/min</p>
+        <p class="model__desc">O aquecedor digital mais vendido da Nova Geração Rinnai. Compatível com módulo controlador WIFI e produzido no Brasil.</p>
+        <p class="model__role"></p>
+        <a class="btn btn--glass model__cta" href="https://wa.me/5585997554327?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20HS%20e%20quero%20or%C3%A7amento%20do%20aquecedor%20a%20g%C3%A1s%20Rinnai%20E21." target="_blank" rel="noopener">Falar sobre o E21</a>
+      </article>
+    </div>
+
+    <p class="models__note" id="modelsNote" hidden>Seu consumo estimado passa de 21 L/min. Nesse caso trabalhamos com modelos maiores da linha ou com dois aparelhos em paralelo — o dimensionamento certo é definido na visita técnica.</p>
   </div>
 </section>
 
@@ -761,9 +846,8 @@ h1,h2,h3{font-weight:400;margin:0}
   </div>
   <div class="logos reveal" id="logos">
     <ul class="logos__track" id="logosTrack">
-      <li class="logo-card" data-brand="rinnai"><img src="https://media.rinnai.com.br/blobazrinnai/wp-content/uploads/sites/19/2025/10/rinnai-brasil-logo-tm.svg" alt="Rinnai" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('no-logo')"><span class="logo-card__name">Rinnai</span><small>Revenda e assistência autorizada</small></li>
+      <li class="logo-card" data-brand="rinnai"><img src="https://www.rinnai.com.br/assets/images/logo.svg" alt="Rinnai" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('no-logo')"><span class="logo-card__name">Rinnai</span><small>Revenda e assistência autorizada</small></li>
       <li class="logo-card"><img src="https://hagamenonservicos.com.br/wp-content/uploads/2020/11/logo-sodramar.webp" alt="Sodramar" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('no-logo')"><span class="logo-card__name">Sodramar</span><small>Autorizada</small></li>
-      <li class="logo-card"><img src="https://www.rinnai.com.br/assets/images/logo.svg" alt="Rinnai" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('no-logo')"><span class="logo-card__name">Rinnai</span></li>
       <li class="logo-card"><img src="https://hagamenonservicos.com.br/wp-content/uploads/2020/11/logo-impercarp.webp" alt="Impercap" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('no-logo')"><span class="logo-card__name">Impercap</span></li>
       <li class="logo-card no-logo"><span class="logo-card__name">Sanspray</span></li>
       <li class="logo-card no-logo"><span class="logo-card__name">Heliotek</span></li>
@@ -976,7 +1060,7 @@ h1,h2,h3{font-weight:400;margin:0}
       <details class="faq__item reveal"><summary>Minha sauna a vapor não esquenta. O que pode ser?<span class="faq__ico" aria-hidden="true"></span></summary><div class="faq__body"><p>As causas mais comuns são resistência queimada, torneira boia com defeito ou problema nas botoeiras e no comando elétrico. Na visita fazemos o diagnóstico e trocamos a peça necessária.</p></div></details>
       <details class="faq__item reveal"><summary>De quanto em quanto tempo devo fazer manutenção na sauna?<span class="faq__ico" aria-hidden="true"></span></summary><div class="faq__body"><p>Depende de quanto a sauna é usada e da qualidade da água. Em saunas de uso intenso, como as de condomínios e academias, o intervalo é menor. Na visita indicamos a frequência ideal para o seu caso.</p></div></details>
       <details class="faq__item reveal"><summary>Qual a diferença entre sauna a vapor e sauna seca?<span class="faq__ico" aria-hidden="true"></span></summary><div class="faq__body"><p>A sauna a vapor usa um gerador que produz vapor e deixa o ambiente úmido. A sauna seca usa um forno elétrico que aquece o ar sem umidade. Instalamos e damos manutenção nos dois tipos.</p></div></details>
-      <details class="faq__item reveal"><summary>Vocês vendem o aquecedor ou só instalam?<span class="faq__ico" aria-hidden="true"></span></summary><div class="faq__body"><p>Somos revenda autorizada Rinnai, então você pode comprar o aquecedor a gás com a gente e já sair com a instalação feita. Também instalamos e consertamos aquecedores de outras marcas, como Rinnai.</p></div></details>
+      <details class="faq__item reveal"><summary>Vocês vendem o aquecedor ou só instalam?<span class="faq__ico" aria-hidden="true"></span></summary><div class="faq__body"><p>Somos revenda autorizada Rinnai, então você pode comprar o aquecedor a gás com a gente e já sair com a instalação feita. Também instalamos e consertamos aquecedores de outras marcas.</p></div></details>
       <details class="faq__item reveal"><summary>O aquecedor a gás funciona com botijão?<span class="faq__ico" aria-hidden="true"></span></summary><div class="faq__body"><p>Sim. Existem modelos para gás natural encanado (GN) e para gás de botijão (GLP). Na visita verificamos qual é o seu caso e o local certo para instalar com segurança.</p></div></details>
       <details class="faq__item reveal"><summary>Qual a melhor forma de aquecer minha piscina?<span class="faq__ico" aria-hidden="true"></span></summary><div class="faq__body"><p>Depende do tamanho da piscina e de como ela é usada. O trocador de calor (bomba de calor) aproveita o calor do ar e costuma ser indicado para uso frequente. O aquecedor a gás aquece mais rápido e atende bem o uso eventual. Na visita avaliamos o volume de água e a casa de bombas para indicar a melhor opção.</p></div></details>
       <details class="faq__item reveal"><summary>Vocês fazem manutenção de banheira de hidromassagem e spa?<span class="faq__ico" aria-hidden="true"></span></summary><div class="faq__body"><p>Sim. Instalamos e consertamos motobombas, controladores, aquecedores e jatos de banheiras de hidromassagem e spas, além do aquecimento da água.</p></div></details>
@@ -1303,6 +1387,47 @@ h1,h2,h3{font-weight:400;margin:0}
       };
       anim = requestAnimationFrame(step);
     };
+    /* modelos ligados ao resultado do simulador */
+    const modelEls = $$('.model', $('#models') || document);
+    const modelsNote = $('#modelsNote');
+    const ROLES = {
+      suggested: { badge: 'Aparelho sugerido', cls: 'is-suggested', text: 'É o modelo que melhor se encaixa no consumo estimado e atende a casa ao longo do ano.' },
+      best: { badge: 'Melhor escolha', cls: 'is-best', text: 'Um degrau acima do sugerido: segura a temperatura mesmo em dias frios ou com uso simultâneo.' },
+      saver: { badge: 'Opção econômica', cls: 'is-saver', text: 'Menor investimento. Atende na maior parte do ano, mas pode ficar justo nos dias mais frios.' },
+      none: { badge: '', cls: '', text: 'Também vendemos, instalamos e damos assistência neste modelo.' }
+    };
+    let lastIdx = null;
+    const syncModels = (flow, ctx) => {
+      if (!modelEls.length) return;
+      const caps = modelEls.map(el => Number(el.dataset.flow));
+      let idx = caps.findIndex(c => c >= flow);
+      const over = idx === -1;
+      if (over) idx = caps.length - 1;
+      modelEls.forEach((el, i) => {
+        const role = i === idx ? 'suggested' : i === idx + 1 ? 'best' : i === idx - 1 ? 'saver' : 'none';
+        const r = ROLES[role];
+        el.classList.remove('is-suggested', 'is-best', 'is-saver', 'is-flash');
+        if (r.cls) el.classList.add(r.cls);
+        el.classList.toggle('has-badge', !!r.badge);
+        $('.model__badge', el).textContent = r.badge;
+        $('.model__role', el).textContent = over && i === idx
+          ? 'É o maior modelo desta seleção. Acima disso, dimensionamos na visita técnica.'
+          : r.text;
+        if (i === idx) el.setAttribute('aria-current', 'true'); else el.removeAttribute('aria-current');
+        $('.model__cta', el).href = waLink(
+          `Olá! Vim pelo site da HS e quero orçamento do aquecedor a gás Rinnai ${el.dataset.name}.\n${ctx}`
+        );
+      });
+      if (modelsNote) modelsNote.hidden = !over;
+      if (lastIdx !== null && idx !== lastIdx && !reduced) {
+        const el = modelEls[idx];
+        el.classList.remove('is-flash');
+        void el.offsetWidth;
+        el.classList.add('is-flash');
+      }
+      lastIdx = idx;
+    };
+
     const update = () => {
       out.textContent = showers;
       minus.disabled = showers <= 1; plus.disabled = showers >= 6;
@@ -1314,11 +1439,12 @@ h1,h2,h3{font-weight:400;margin:0}
       sizeEl.textContent = band ? size : 'Projeto sob medida';
       const gas = $('input[name="gas"]:checked', calc).value;
       const extrasTxt = extras.map(i => i.value).join(', ') || 'nenhum';
+      const ctx = `• Chuveiros ao mesmo tempo: ${showers}\n• Outros pontos: ${extrasTxt}\n• Gás: ${gas}\n` +
+        `• Estimativa do site: ${flow} L/min`;
       send.href = waLink(
-        `Olá! Vim pelo site da HS e quero orçamento de aquecedor a gás Rinnai.\n` +
-        `• Chuveiros ao mesmo tempo: ${showers}\n• Outros pontos: ${extrasTxt}\n• Gás: ${gas}\n` +
-        `• Estimativa do site: ${flow} L/min (sugestão: ${size})`
+        `Olá! Vim pelo site da HS e quero orçamento de aquecedor a gás Rinnai.\n${ctx} (sugestão: ${size})`
       );
+      syncModels(flow, ctx);
     };
     minus.addEventListener('click', () => { showers = Math.max(1, showers - 1); update(); });
     plus.addEventListener('click', () => { showers = Math.min(6, showers + 1); update(); });
