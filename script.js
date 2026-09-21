@@ -206,9 +206,9 @@
     go(0); restart();
   }
 
-  /* ---------- logos marquee: duplicate set for a seamless loop ---------- */
-  const lTrack = $('#logosTrack');
-  if (lTrack) {
+  /* ---------- logos marquee: autoplay, drag-to-scroll, click to highlight ---------- */
+  const logos = $('#logos'), lTrack = $('#logosTrack');
+  if (logos && lTrack) {
     $$('.logo-card', lTrack).forEach(card => {
       const c = card.cloneNode(true);
       c.setAttribute('aria-hidden', 'true');
@@ -216,6 +216,62 @@
       if (img) img.addEventListener('error', () => c.classList.add('no-logo'));
       lTrack.appendChild(c);
     });
+
+    let moved = false;
+    lTrack.addEventListener('click', (e) => {
+      if (moved) { moved = false; return; }
+      const card = e.target.closest('.logo-card');
+      if (!card) return;
+      const wasActive = card.classList.contains('is-active');
+      $$('.logo-card.is-active', lTrack).forEach(c => c.classList.remove('is-active'));
+      if (!wasActive) card.classList.add('is-active');
+    });
+
+    if (!reduced) {
+      let setWidth = 0;
+      const measure = () => { setWidth = lTrack.scrollWidth / 2; };
+      measure();
+      window.addEventListener('resize', measure);
+
+      let pos = 0, dragging = false, hovering = false, startX = 0, startPos = 0, speed = 0.45;
+      const apply = () => { lTrack.style.transform = `translateX(${-pos}px)`; };
+      const wrap = () => {
+        if (setWidth <= 0) return;
+        pos = ((pos % setWidth) + setWidth) % setWidth;
+      };
+      const tick = () => {
+        if (!dragging && !hovering) { pos += speed; wrap(); apply(); }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+
+      const dragStart = (e) => {
+        dragging = true; moved = false;
+        startX = e.touches ? e.touches[0].clientX : e.clientX;
+        startPos = pos;
+        logos.classList.add('is-dragging');
+      };
+      const dragMove = (e) => {
+        if (!dragging) return;
+        const x = e.touches ? e.touches[0].clientX : e.clientX;
+        const dx = x - startX;
+        if (Math.abs(dx) > 4) moved = true;
+        pos = startPos - dx;
+        wrap();
+        apply();
+      };
+      const dragEnd = () => { dragging = false; logos.classList.remove('is-dragging'); };
+
+      logos.addEventListener('mousedown', dragStart);
+      window.addEventListener('mousemove', dragMove);
+      window.addEventListener('mouseup', dragEnd);
+      logos.addEventListener('touchstart', dragStart, { passive: true });
+      logos.addEventListener('touchmove', dragMove, { passive: true });
+      logos.addEventListener('touchend', dragEnd);
+      logos.addEventListener('mouseenter', () => { hovering = true; });
+      logos.addEventListener('mouseleave', () => { hovering = false; dragEnd(); });
+      logos.addEventListener('dragstart', (e) => e.preventDefault());
+    }
   }
 
   /* ---------- heater estimate ---------- */
